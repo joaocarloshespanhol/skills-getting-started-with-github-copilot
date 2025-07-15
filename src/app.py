@@ -19,7 +19,7 @@ current_dir = Path(__file__).parent
 app.mount("/static", StaticFiles(directory=os.path.join(Path(__file__).parent,
           "static")), name="static")
 
-# In-memory activity database
+# ...existing code...
 activities = {
     "Chess Club": {
         "description": "Learn strategies and compete in chess tournaments",
@@ -38,10 +38,47 @@ activities = {
         "schedule": "Mondays, Wednesdays, Fridays, 2:00 PM - 3:00 PM",
         "max_participants": 30,
         "participants": ["john@mergington.edu", "olivia@mergington.edu"]
+    },
+    # Novas atividades esportivas
+    "Soccer Team": {
+        "description": "Join the school soccer team and compete in local tournaments",
+        "schedule": "Tuesdays and Thursdays, 5:00 PM - 6:30 PM",
+        "max_participants": 22,
+        "participants": []
+    },
+    "Swimming Club": {
+        "description": "Improve your swimming skills and participate in meets",
+        "schedule": "Wednesdays, 4:00 PM - 5:30 PM",
+        "max_participants": 15,
+        "participants": []
+    },
+    # Novas atividades artísticas
+    "Drama Club": {
+        "description": "Participate in theater productions and acting workshops",
+        "schedule": "Mondays, 3:30 PM - 5:00 PM",
+        "max_participants": 18,
+        "participants": []
+    },
+    "Art Workshop": {
+        "description": "Explore painting, drawing, and sculpture techniques",
+        "schedule": "Fridays, 2:00 PM - 3:30 PM",
+        "max_participants": 16,
+        "participants": []
+    },
+    # Novas atividades intelectuais
+    "Math Olympiad": {
+        "description": "Prepare for math competitions and enhance problem-solving skills",
+        "schedule": "Thursdays, 4:00 PM - 5:30 PM",
+        "max_participants": 25,
+        "participants": []
+    },
+    "Science Club": {
+        "description": "Conduct experiments and explore scientific concepts",
+        "schedule": "Wednesdays, 3:30 PM - 5:00 PM",
+        "max_participants": 20,
+        "participants": []
     }
 }
-
-
 @app.get("/")
 def root():
     return RedirectResponse(url="/static/index.html")
@@ -56,6 +93,8 @@ def get_activities():
 def signup_for_activity(activity_name: str, email: str):
     """Sign up a student for an activity"""
     # Validate activity exists
+
+    # Validate student is not already signed up
     if activity_name not in activities:
         raise HTTPException(status_code=404, detail="Activity not found")
 
